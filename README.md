@@ -33,20 +33,18 @@ After testing on the validation set we choose the following configuration:
 
 Results: 
 
-
-<img width="486" alt="image" src="https://user-images.githubusercontent.com/107760266/213874048-076862eb-cc29-4c77-bcd3-f39a06b959ff.png">
-
-<img width="484" alt="image" src="https://user-images.githubusercontent.com/107760266/213874055-d244e974-32df-4ac3-9bcd-377919a02595.png">
-
-<img width="277" alt="image" src="https://user-images.githubusercontent.com/107760266/213874068-aa81c23c-f3f9-44b6-91fa-6f5fae52ec6d.png">
+ 
+ 
+![image](https://user-images.githubusercontent.com/107760266/213874724-16255b32-3bf3-46b9-89db-244353f147e2.png)
 
 
 **Experiment 2:** original paper architecture with Adam optimizer.
 
  ![image](https://user-images.githubusercontent.com/107760266/213874161-415eca21-cc11-412a-960b-ec289fc9ee77.png)
 
+Results:
 
-<img width="347" alt="image" src="https://user-images.githubusercontent.com/107760266/213874169-77c46e0c-7214-4f86-b736-23c89cbd5061.png">
+![image](https://user-images.githubusercontent.com/107760266/213874692-389d6ee5-6929-44c4-a7b6-0686b92cee19.png)
 
 
 
@@ -63,9 +61,83 @@ The original architecture is very large, and given only 1980 pairs for training,
 
 The Results:
 
-<img width="515" alt="image" src="https://user-images.githubusercontent.com/107760266/213874252-1ab3c3df-a2dd-421c-ac1a-9a930907523a.png">
-
  
 
 ![image](https://user-images.githubusercontent.com/107760266/213874268-4840e66b-ba0f-45e2-ad71-1ce7e242c85f.png)
+
+
+**Experiment 4:** We added Dropout layers after each max-pooling layer and set the dropout rate to 0.4.
+<img width="404" alt="image" src="https://user-images.githubusercontent.com/107760266/213874366-d2c7ab5b-d211-4887-a727-c0222e1ce279.png">
+
+
+Results:
+
+ 
+
+ 
+![image](https://user-images.githubusercontent.com/107760266/213874424-0a3ff530-6a35-41f9-911d-0185947fa2f8.png)
+
+
+We got better results, but there is still overfitting: the loss in the training set decreases while the loss in the validation set which increases, and the accuracy in the training set increases while the accuracy in the validation remains constant. The training was stopped after 75 epochs (431s) because the model showed no improvement. To improve the overfitting we tried to increase the dropout factor. 
+
+
+**Experiment 5:** We set the dropout rate to 0.7.
+ 
+ 
+
+ 
+![image](https://user-images.githubusercontent.com/107760266/213874455-a4dc1f88-ea5b-4697-b492-66803201ef20.png)
+
+
+This model gave us the best results: there is no significant overfitting which means the accuracy and the loss in the training set is close to the accuracy and the loss of the validation set. The training was stopped after 80 epochs (474s) because the model showed no improvement - towards the end the cost seems constant with small jumps.
+
+## 4. Prediction Examples
+4.1 Correct Classifications:
+True-positive example: classify two images of the same person (class 1) for two images of the same person (class 1).
+
+<img width="234" alt="image" src="https://user-images.githubusercontent.com/107760266/213874504-f18c3e85-b11b-4ff9-b74f-be92d07c84c3.png">
+
+
+In this example there is a pair of images of the same person, that the model classified with a high confidence (89.7%) as 1. In both pictures the man has the same haircut, facial expression and suit. In addition, the background in both pictures is relatively bright. Although the man's the direction of the face was different were different in the two pictures, the model still managed to recognize that it was the same figure with a high level of confidence, probably because of the similar features we mentioned.
+
+
+True-negative example: classify as two different people (class 0) for two images of the different people (class 0). 
+<img width="236" alt="image" src="https://user-images.githubusercontent.com/107760266/213874529-52258357-aeeb-400b-893a-79acd85e8a60.png">
+
+
+This example shows a pair of images of different people that the model classified correctly. These two people are clearly not the same person and the model indeed was able to identify this. The similar haircut can confuse the model but both their faces , their facial expression  and the background are completely different. In addition, the woman on the right is wearing glasses and a necklace and the man on the left has no glasses or necklace. All these helped the model to distinguish that these are different people.
+
+
+
+4.2 Misclassifications: 
+False-negative example: classify two images of the same person (class 1) as two different people (class 0)
+
+
+<img width="230" alt="image" src="https://user-images.githubusercontent.com/107760266/213874581-72730fb8-9711-4316-85cf-258d39253919.png">
+
+
+In both pictures the person's face appears in about the same angle. We assume that the misclassification in that case raised from the differences in the facial expression and the background around his face. These might have led the model to an error since it learns features from the entire image.
+
+
+False-positive example: classify two different people (class 0) as the same person (class 1).
+
+<img width="232" alt="image" src="https://user-images.githubusercontent.com/107760266/213874600-f6053930-9033-4306-91e2-42071a7ff211.png">
+
+
+This example presents two men, each of them with a microphone. At first glance, the people in the pictures look similar, but it can be seen that they are different people. This similarity might have led the model to an error.
+The differences in the darkness of the hair and the background are probably the reason for the lower confidence (only 69.5%).
+
+
+## 5.	Conclusion
+The experiments that were performed during the assignment were based on trial and error.
+The results show that adding batch normalization and choosing an appropriate optimizer help improve model accuracy, while adding dropout can help reduce overfitting.
+Moreover, we found out that the process of finding the best parameters can be very long and the combination of the hyperparameters set for the model impact the final results. 
+The misclassification examples have shown us that in some cases the wrong classifications were caused due to some details in the background of the images that might have been misleading.
+For future work we suggest using a model which will focus on facial features only, or using a different dataset with a clear background and measure the model performances on larger datasets. 
+The assignment taught us new things.
+First, it gave us the opportunity to build a CNN using PyTorch for the first time. Furthermore, we feel that we gained deeper understanding regarding of CNN networks and specifically Siamese networks.
+
+
+
+
 
