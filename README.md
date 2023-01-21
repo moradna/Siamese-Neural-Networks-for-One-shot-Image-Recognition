@@ -32,10 +32,8 @@ After testing on the validation set we choose the following configuration:
 <img width="352" alt="image" src="https://user-images.githubusercontent.com/107760266/213874015-92383360-131a-467a-ada3-9a47d12afbcb.png">
 
 Results: 
-
  
- 
-![image](https://user-images.githubusercontent.com/107760266/213874724-16255b32-3bf3-46b9-89db-244353f147e2.png)
+![image](https://user-images.githubusercontent.com/107760266/213874823-549a2eef-9923-49cb-8327-805b99797852.png)
 
 
 **Experiment 2:** original paper architecture with Adam optimizer.
