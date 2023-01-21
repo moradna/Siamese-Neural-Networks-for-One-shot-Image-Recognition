@@ -91,6 +91,7 @@ This model gave us the best results: there is no significant overfitting which m
 
 ## 4. Prediction Examples
 4.1 Correct Classifications:
+
 True-positive example: classify two images of the same person (class 1) for two images of the same person (class 1).
 
 <img width="234" alt="image" src="https://user-images.githubusercontent.com/107760266/213874504-f18c3e85-b11b-4ff9-b74f-be92d07c84c3.png">
@@ -100,6 +101,7 @@ In this example there is a pair of images of the same person, that the model cla
 
 
 True-negative example: classify as two different people (class 0) for two images of the different people (class 0). 
+
 <img width="236" alt="image" src="https://user-images.githubusercontent.com/107760266/213874529-52258357-aeeb-400b-893a-79acd85e8a60.png">
 
 
